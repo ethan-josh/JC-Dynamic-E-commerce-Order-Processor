@@ -125,6 +125,43 @@ public class InteractiveOrderProcessor{
 
 		System.out.printf("\nFinal Order Total: $%.2f\n", subTotal+shippingCost);
 
+		System.out.println("\n--- String Equality Demo ---\n");
+		System.out.print("Enter first string for comparison: ");
+		scanner.nextLine();
+		String stringToCompare1 = scanner.nextLine();
+		System.out.print("Enter second string for comparison: ");
+		String stringToCompare2 = scanner.nextLine();
+
+		System.out.println("String 1: \"" + stringToCompare1 + "\"");
+		System.out.println("String 2: \"" + stringToCompare2 + "\"\n");
+
+		// WRONG
+		//System.out.print("String 1 == String 2: " + stringToCompare1==stringToCompare2);
+		//System.out.println(" (Compares references, which are different for user input strings)");
+		/* 
+		This was not outputting as expected hence upon closer observation
+		+ has higher precedence than ==
+		So Java evaluates:
+		("String 1 == String 2: " + stringToCompare1) == stringToCompare2 
+		which is a comparison between two different strings → false
+		*/
+
+		System.out.print("String 1 == String 2: " + (stringToCompare1==stringToCompare2));
+		System.out.println(" (Compares references, which are different for user input strings)");
+
+		if(stringToCompare1.equals(stringToCompare2)){
+			System.out.println("String 1 .equals() String2: true (Content is the same and case also)");
+		}else{
+			System.out.println("String 1 .equals() String2: false (Content is not the same - in content or in case)");
+		}
+
+		if(stringToCompare1.equalsIgnoreCase(stringToCompare2)){
+			System.out.println("String 1 .equalsIgnoreCase() String2: true (Content is the same)");
+		}else{
+			System.out.println("String 1 .equalsIgnoreCase() String2: false (Content is not the same)");
+		}
+
+
 	}
 
 }
