@@ -9,7 +9,7 @@ public class InteractiveOrderProcessor{
 		int quantity = 0;
 
 		System.out.println("Welcome to the Interactive Order Processor!");
-		System.out.println("-- Enter Order Details --"); // prompt user to enter details
+		System.out.println("--- Enter Order Details ---"); // prompt user to enter details
 		
 		System.out.print("Enter unit price: ");
 		unitPrice = scanner.nextDouble();
@@ -35,19 +35,42 @@ public class InteractiveOrderProcessor{
 		boolean waivedShippingCost = false;
 		double shippingCost;
 
+		System.out.println("\n--- Order Details ---");
+		System.out.printf("Unit price: $%.2f\n", unitPrice); // no autoboxing but
+		// System.out.println("Unit price: $" + String.valueOf(unitPrice));
+		// implicit conversion to string is done
+		System.out.println("Quantity: " + quantity);
+		System.out.println("Is Member: " + customerMembership);
+		System.out.println("Customer Tier: " + customerTier);
+		System.out.println("Shipping Zone: " + shippingZone);
+		System.out.println("Discount Code: " + discountCode);
+
+
 		// customer tier discount
+
+		System.out.println("\n--- Calculation Steps ---");
+		System.out.printf("Initial Subtotal: $%.2f\n", subTotal);
+		System.out.print("After Tier Discount "); 
+
 		if (customerTier.equals("Gold")){
 			subTotal = subTotal - (subTotal*0.15); // apply 15% discount
+			System.out.printf("(Gold - 15%%): $%.2f\n", subTotal);
 		} else if (customerTier.equals("Silver")){
 			subTotal = subTotal - (subTotal*0.10); // apply 10% discount
+			System.out.printf("(Silver - 10%%): $%.2f\n", subTotal);
 		} else { // Regular customer only or unknown tiers
 			subTotal = subTotal; // no discount
+			System.out.printf("(Regular or Unknown - 0%%): $%.2f\n", subTotal);
 		}
 
 		// quantity discount
+		System.out.print("After Quantity Discount ");
 		if (quantity >= 5){
 			//subTotal = subTotal - (subTotal*0.05); // apply 5% discount
 			subTotal *= 0.95; // another way to apply 5% discount
+			System.out.printf("(5%% for >=5 items): $%.2f\n ",subTotal);
+		}else{
+			System.out.printf("(<5 items): $%.2f\n ",subTotal);
 		}
 
 		// discount code discount
@@ -62,7 +85,7 @@ public class InteractiveOrderProcessor{
 		// apply $3 small order charge
 		subTotal = (subTotal < 25) ? subTotal+=3 : subTotal; 
 
-		System.out.println(subTotal); // debug
+		// System.out.println(subTotal); // debug
 
 		final String ZONEB = "ZoneB";
 
@@ -86,7 +109,7 @@ public class InteractiveOrderProcessor{
 			shippingCost = 0;
 		}
 
-		System.out.println(shippingCost); // debug
+		// System.out.println(shippingCost); // debug
 
 
 
