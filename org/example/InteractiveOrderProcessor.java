@@ -68,51 +68,62 @@ public class InteractiveOrderProcessor{
 		if (quantity >= 5){
 			//subTotal = subTotal - (subTotal*0.05); // apply 5% discount
 			subTotal *= 0.95; // another way to apply 5% discount
-			System.out.printf("(5%% for >=5 items): $%.2f\n ",subTotal);
+			System.out.printf("(5%% for >=5 items): $%.2f\n",subTotal);
 		}else{
-			System.out.printf("(<5 items): $%.2f\n ",subTotal);
+			System.out.printf("(<5 items): $%.2f\n",subTotal);
 		}
 
 		// discount code discount
+		System.out.print("After Promotional Code ");
 		if (discountCode.equals("SAVE10") && subTotal > 75.0){
 			// subTotal = subTotal - 10; // flat 10 discount
 			subTotal -= 10;
+			System.out.printf("(SAVE10 for >$75): $%.2f\n", subTotal);
 		}else if (discountCode.equalsIgnoreCase("FREESHIP")){
 			waivedShippingCost = true;
+			System.out.println("(FREESHIP for free shipping ): No Shipping Cost");
 		}
 
 		// if after all discounts, subtotal is < 25
 		// apply $3 small order charge
+		System.out.print("After Small Order Surcharge (if applicable): ");
 		subTotal = (subTotal < 25) ? subTotal+=3 : subTotal; 
 
-		// System.out.println(subTotal); // debug
+		if (subTotal < 25){
+			System.out.printf("$%.2f (With surchage)\n", subTotal);
+		}else{
+			System.out.printf("$%.2f (No surcharge)\n", subTotal);
+		}
 
+		System.out.println();
 		final String ZONEB = "ZoneB";
 
 		if (waivedShippingCost == false){
 			switch(shippingZone){
 				case "ZoneA":
 					shippingCost = 5;
+					System.out.printf("Shipping Cost: $%.2f (ZoneA)\n", shippingCost);
 					break;
 				case ZONEB:
 					shippingCost = 12.50;
+					System.out.printf("Shipping Cost: $%.2f (ZoneB)\n", shippingCost);
 					break;
 				case "ZoneC":
 					shippingCost = 20.00;
+					System.out.printf("Shipping Cost: $%.2f (ZoneC)\n", shippingCost);
 					break;
 				default:
 					shippingCost = 25.00;
+					System.out.printf("Shipping Cost: $%.2f (default)\n", shippingCost);
 					break;
 
 			}
 		}else{
 			shippingCost = 0;
+			System.out.printf("Shipping Cost: $%.2f (with discount)\n", shippingCost);
 		}
 
-		// System.out.println(shippingCost); // debug
-
-
-
+		System.out.printf("\nFinal Order Total: $%.2f\n", subTotal+shippingCost);
 
 	}
 
