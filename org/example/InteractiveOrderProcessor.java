@@ -32,6 +32,8 @@ public class InteractiveOrderProcessor{
 
 
 		double subTotal = unitPrice * quantity; // declaring it out of the block scope of if-else
+		boolean waivedShippingCost = false;
+		double shippingCost;
 
 		// customer tier discount
 		if (customerTier.equals("Gold")){
@@ -48,7 +50,45 @@ public class InteractiveOrderProcessor{
 			subTotal *= 0.95; // another way to apply 5% discount
 		}
 
-		System.out.println(subTotal);
+		// discount code discount
+		if (discountCode.equals("SAVE10") && subTotal > 75.0){
+			// subTotal = subTotal - 10; // flat 10 discount
+			subTotal -= 10;
+		}else if (discountCode.equalsIgnoreCase("FREESHIP")){
+			waivedShippingCost = true;
+		}
+
+		// if after all discounts, subtotal is < 25
+		// apply $3 small order charge
+		subTotal = (subTotal < 25) ? subTotal+=3 : subTotal; 
+
+		System.out.println(subTotal); // debug
+
+		final String ZONEB = "ZoneB";
+
+		if (waivedShippingCost == false){
+			switch(shippingZone){
+				case "ZoneA":
+					shippingCost = 5;
+					break;
+				case ZONEB:
+					shippingCost = 12.50;
+					break;
+				case "ZoneC":
+					shippingCost = 20.00;
+					break;
+				default:
+					shippingCost = 25.00;
+					break;
+
+			}
+		}else{
+			shippingCost = 0;
+		}
+
+		System.out.println(shippingCost); // debug
+
+
 
 
 	}
