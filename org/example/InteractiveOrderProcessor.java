@@ -48,6 +48,8 @@ public class InteractiveOrderProcessor{
 			subTotal *= 0.95; // another way to apply 5% discount
 		}
 
+		System.out.println(subTotal);
+
 
 	}
 
