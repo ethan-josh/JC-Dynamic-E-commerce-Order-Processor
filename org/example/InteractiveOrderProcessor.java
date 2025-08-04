@@ -31,8 +31,22 @@ public class InteractiveOrderProcessor{
 		String discountCode = scanner.next();
 
 
-		double subTotal = price * quantity;
-		
+		double subTotal = price * quantity; // declaring it out of the block scope of if-else
+
+		// customer tier discount
+		if (customerTier.equals("Gold")){
+			subTotal = subTotal - (subTotal*0.15); // apply 15% discount
+		} else if (customerTier.equals("Silver")){
+			subTotal = subTotal - (subTotal*0.10); // apply 10% discount
+		} else { // Regular customer only or unknown tiers
+			subTotal = subTotal; // no discount
+		}
+
+		// quantity discount
+		if (quantity >= 5){
+			//subTotal = subTotal - (subTotal*0.05); // apply 5% discount
+			subTotal *= 0.95; // another way to apply 5% discount
+		}
 
 
 	}
